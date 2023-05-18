@@ -1,0 +1,2 @@
+class UrlTable < ApplicationRecord
+end
