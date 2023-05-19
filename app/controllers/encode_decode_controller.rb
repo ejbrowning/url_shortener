@@ -21,8 +21,13 @@ class EncodeDecodeController < ApplicationController
         short = params[:short] 
         # finding the row that has the long_url that corresponds to the shortened url
         id_row = UrlTable.find_by_url_id(short) 
+        # check to see if id_row is nil
+        if id_row == nil
+            render status: 400
+        else
         # get the long_url from the id_row and return as JSON
         render json: {long:id_row.long_url} 
+        end
     end
     
 end
