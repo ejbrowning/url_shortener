@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_18_170252) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_19_171127) do
   create_table "url_tables", force: :cascade do |t|
     t.string "long_url"
     t.string "url_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["url_id"], name: "index_url_tables_on_url_id", unique: true
   end
 
 end

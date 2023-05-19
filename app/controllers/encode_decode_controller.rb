@@ -3,7 +3,7 @@ class EncodeDecodeController < ApplicationController
     def encode
         http_base = "http://short.est/"
         # getting long_url from the query string
-        long = params[:long] .to_s
+        long = params[:long].to_s
         # check that long url is a valid url  
         unless (long.match?(/(http|https):\/{1,2}[a-zA-Z0-9@:%._\\+~#?&\/\/=]+\.[a-z]+([-a-zA-Z0-9@:%._\\+~#?&\/\/=])*/))
             render status: 400
@@ -16,6 +16,7 @@ class EncodeDecodeController < ApplicationController
                 long_id = http_base + SecureRandom.urlsafe_base64(6).to_s 
             end
             # making a new row in the table for the long_url and its id
+            # TODO - catch exception thrown if trying to create a row with an id that already exists
             new_row = UrlTable.create(long_url:long, url_id:long_id)
             # returning JSON with the shortened url
             render json: {short: new_row.url_id}
