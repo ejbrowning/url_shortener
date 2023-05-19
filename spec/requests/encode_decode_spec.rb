@@ -2,6 +2,12 @@ require "rails_helper"
 test_url = "http://wikepedia.com/"
 
 describe "EncodeDecodes", type: :request do
+    it "decode returns 400 for invalid short" do
+        get "/decode?short=yello"
+        # check that the request returns status 400 (bad request)
+        expect(response).to have_http_status(400)
+    end
+    
     it "encode returns a valid JSON response" do
         get "/encode?long=" + test_url
 
@@ -18,7 +24,7 @@ describe "EncodeDecodes", type: :request do
         get "/encode?long=" + test_url
         response_values = JSON.parse(response.body)
         shortened_url = response_values["short"]
-        
+
         # use the encoded url in a call to the decode endpoint
         get "/decode?short=" + shortened_url.to_s
         # check that the request returns a success
